@@ -1,6 +1,12 @@
+import React from "react";
 import Coupon from "../models/coupon.model.js";
 import Order from "../models/order.model.js";
 import { stripe } from "../lib/stripe.js";
+import User from "../models/user.model.js"; // make sure User is imported
+import resend from "../lib/resend.js";
+import { PurchaseConfirmationEmail } from "../emails/PurchaseConfirmationEmail.js";
+import ReactDOMServer from "react-dom/server";
+
 
 export const createCheckoutSession = async (req, res) => {
 	try {
@@ -58,6 +64,9 @@ export const createCheckoutSession = async (req, res) => {
 						id: p._id,
 						quantity: p.quantity,
 						price: p.price,
+						// send email success purchase
+						productName: p.name,
+						productImage: p.image,
 					}))
 				),
 			},
@@ -74,48 +83,94 @@ export const createCheckoutSession = async (req, res) => {
 };
 
 export const checkoutSuccess = async (req, res) => {
-	try {
-		const { sessionId } = req.body;
-		const session = await stripe.checkout.sessions.retrieve(sessionId);
+  try {
+    const { sessionId } = req.body;
+    const session = await stripe.checkout.sessions.retrieve(sessionId);
 
-		if (session.payment_status === "paid") {
-			if (session.metadata.couponCode) {
-				await Coupon.findOneAndUpdate(
-					{
-						code: session.metadata.couponCode,
-						userId: session.metadata.userId,
-					},
-					{
-						isActive: false,
-					}
-				);
-			}
+    if (session.payment_status !== "paid") {
+      return res.status(400).json({ message: "Payment not completed." });
+    }
 
-			// create a new Order
-			const products = JSON.parse(session.metadata.products);
-			const newOrder = new Order({
-				user: session.metadata.userId,
-				products: products.map((product) => ({
-					product: product.id,
-					quantity: product.quantity,
-					price: product.price,
-				})),
-				totalAmount: session.amount_total / 100, // convert from cents to dollars,
-				stripeSessionId: sessionId,
+    // Deactivate coupon if used
+    if (session.metadata.couponCode) {
+      await Coupon.findOneAndUpdate(
+        { code: session.metadata.couponCode, userId: session.metadata.userId },
+        { isActive: false }
+      );
+    }
+
+    const products = JSON.parse(session.metadata.products);
+
+    // Check if order already exists
+    let order = await Order.findOne({ stripeSessionId: sessionId });
+
+    if (!order) {
+      order = new Order({
+        user: session.metadata.userId,
+        products: products.map((p) => ({
+          product: p.id,
+          quantity: p.quantity,
+          price: p.price,
+        })),
+        totalAmount: session.amount_total / 100,
+        stripeSessionId: sessionId,
+        emailSent: false, // custom field to track if email was sent
+      });
+      await order.save();
+    }
+
+    // Get user info
+    const user = await User.findById(session.metadata.userId);
+
+    // Send email if not already sent
+    if (user && products.length > 0 && !order.emailSent) {
+      	// const html = PurchaseConfirmationEmail({
+		// 	order: {
+		// 		customerName: user.name,
+		// 		id: order._id,
+		// 		total: session.amount_total / 100,
+		// 	},
+		// });
+
+		const html = ReactDOMServer.renderToStaticMarkup(
+			React.createElement(PurchaseConfirmationEmail, {
+				order: {
+				customerName: user.name,
+				id: order._id,
+				total: session.amount_total / 100,
+				},
+			})
+		);
+
+      	try {
+			const response = await resend.emails.send({
+				from: "Ecommerce <onboarding@resend.dev>",
+				to: user.email,
+				subject: "Purchase Confirmed",
+				html, // ✅ now this is a string
 			});
-
-			await newOrder.save();
-
-			res.status(200).json({
-				success: true,
-				message: "Payment successful, order created, and coupon deactivated if used.",
-				orderId: newOrder._id,
-			});
+			console.log("✅ Email sent:", response);
+		} catch (err) {
+		console.error("❌ Email send failed:", err);
 		}
-	} catch (error) {
-		console.error("Error processing successful checkout:", error);
-		res.status(500).json({ message: "Error processing successful checkout", error: error.message });
-	}
+
+
+      order.emailSent = true;
+      await order.save();
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Payment successful, order created, and email sent.",
+      orderId: order._id,
+    });
+  } catch (error) {
+    console.error("Error processing successful checkout:", error);
+    res.status(500).json({
+      message: "Error processing successful checkout",
+      error: error.message,
+    });
+  }
 };
 
 async function createStripeCoupon(discountPercentage) {
