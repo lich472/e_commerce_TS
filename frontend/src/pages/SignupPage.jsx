@@ -54,7 +54,7 @@ const SignupPage = () => {
 						value={formData.name}
 						onChange={(e) => setFormData({ ...formData, name: e.target.value })}
 						className='block w-full px-3 py-2 pl-10 bg-gray-700 border border-gray-600 rounded-md shadow-sm
-							placeholder-gray-400 focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm'
+							placeholder-gray-400 focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm text-white'
 						placeholder='John Doe'
 					/>
 				</div>
@@ -77,7 +77,7 @@ const SignupPage = () => {
 						className=' block w-full px-3 py-2 pl-10 bg-gray-700 border border-gray-600 
 						rounded-md shadow-sm
 							placeholder-gray-400 focus:outline-none focus:ring-sky-500 
-							focus:border-sky-500 sm:text-sm'
+							focus:border-sky-500 sm:text-sm text-white'
 						placeholder='you@example.com'
 					/>
 				</div>
@@ -100,7 +100,7 @@ const SignupPage = () => {
 						className=' block w-full px-3 py-2 pl-10 bg-gray-700 border border-gray-600 
 						rounded-md shadow-sm
 							placeholder-gray-400 focus:outline-none focus:ring-sky-500 
-							focus:border-sky-500 sm:text-sm'
+							focus:border-sky-500 sm:text-sm text-white'
 						placeholder='123 ABC Street'
 					/>
 				</div>
@@ -121,7 +121,7 @@ const SignupPage = () => {
 						value={formData.password}
 						onChange={(e) => setFormData({ ...formData, password: e.target.value })}
 						className=' block w-full px-3 py-2 pl-10 bg-gray-700 border border-gray-600 
-						rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm'
+						rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm text-white'
 						placeholder='••••••••'
 					/>
 				</div>
@@ -142,7 +142,7 @@ const SignupPage = () => {
 						value={formData.confirmPassword}
 						onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
 						className=' block w-full px-3 py-2 pl-10 bg-gray-700 border
-							border-gray-600 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm'
+							border-gray-600 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm text-white'
 						placeholder='••••••••'
 					/>
 				</div>
