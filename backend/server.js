@@ -23,13 +23,14 @@ const __dirname = path.resolve();
 app.use(express.json({ limit: "10mb" }));
 app.use(cookieParser());
 
-// 👇 ADD THIS
-app.use(
-  cors({
-    origin: "http://localhost:5173",  // frontend dev URL
-    credentials: true                 // allow cookies
-  })
-);
+if (process.env.NODE_ENV !== "production") {
+  app.use(
+    cors({
+      origin: "http://localhost:5173",  // frontend dev URL
+      credentials: true                 // allow cookies
+    })
+  );
+}
 
 app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
@@ -39,10 +40,10 @@ app.use("/api/payments", paymentRoutes);
 app.use("/api/analytics", analyticsRoutes);
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "/frontend/dist")));
+  app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
   app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
+    res.sendFile(path.resolve(__dirname, "../frontend", "dist", "index.html"));
   });
 }
 
