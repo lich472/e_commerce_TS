@@ -137,11 +137,11 @@ export const checkoutSuccess = async (req, res) => {
 				from: "Ecommerce <onboarding@resend.dev>",
 				to: user.email,
 				subject: "Purchase Confirmed",
-				html, // ✅ now this is a string
+				html, // now this is a string
 			});
-			console.log("✅ Email sent:", response);
+			console.log("Email sent:", response);
 		} catch (err) {
-		console.error("❌ Email send failed:", err);
+		console.error("Email send failed:", err);
 		}
 
 
