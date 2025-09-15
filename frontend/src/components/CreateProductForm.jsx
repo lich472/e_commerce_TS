@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { PlusCircle, Upload, Loader } from "lucide-react";
 import { useProductStore } from "../stores/useProductStore";
 
-const categories = ["iphone", "samsung", "screenReplacement", "otherCommonFix", "batteryReplacement", "suits", "bags"];
+const categories = ["iphone", "samsung", "otherBrand", "screenReplacement", "otherCommonFix", "batteryReplacement"];
 
 const CreateProductForm = () => {
 	const [newProduct, setNewProduct] = useState({

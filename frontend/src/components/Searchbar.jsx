@@ -20,7 +20,7 @@ const Searchbar = ({ category }) => {
                 value={query} 
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder='Search...'
-                className='px-3 py-2 rounded-md border border-gray-300 bg-gray-700 text-white flex-1' 
+                className='px-3 py-2 rounded-md border border-gray-300 bg-gray-50 text-black flex-1' 
             />
         </div>
     )

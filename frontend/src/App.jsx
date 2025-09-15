@@ -17,6 +17,8 @@ import { useEffect } from "react";
 import LoadingSpinner from "./components/LoadingSpinner.jsx";
 import AdminPage from "./pages/AdminPage.jsx";
 import { useCartStore } from "./stores/useCartStore.js";
+import Footer from "./components/Footer.jsx";
+import AboutPage from "./pages/AboutPage.jsx";
 
 function App() {
 
@@ -35,13 +37,13 @@ function App() {
   if(checkingAuth) return <LoadingSpinner />
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
+    <div className="min-h-screen bg-gray-100 text-black">
       <Navbar />
-
       {/* Push content below the fixed navbar */}
       <div className="pt-20 px-4">
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/about" element={<AboutPage />} />
           <Route path="/signup" element={!user ? <SignupPage /> : <Navigate to={"/"} />} />
           <Route path="/login" element={!user ? <LoginPage /> : <Navigate to={"/"} />} />
           <Route path="/secret-dashboard" element={user?.role === "admin" ? <AdminPage /> : <Navigate to={"/login"} />} />
@@ -50,9 +52,9 @@ function App() {
           <Route path="/purchase-success" element={user ? <PurchaseSuccessPage /> : <Navigate to={'/login'} />} />
           <Route path="/purchase-cancel" element={user ? <PurchaseCancelPage /> : <Navigate to={'/login'} />} />
           <Route path="/product/:id" element={<ProductDetailPage />} />
-
         </Routes>
       </div>
+      <Footer />
       <Toaster />
     </div>
   );

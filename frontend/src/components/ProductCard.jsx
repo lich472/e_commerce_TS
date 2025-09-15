@@ -47,17 +47,17 @@ const ProductCard = ({ product }) => {
 
 
 			<div className='mt-4 px-5 pb-5'>
-				<h5 className='text-xl font-semibold tracking-tight text-white'>{product.name}</h5>
+				<h5 className='text-xl font-semibold tracking-tight text-black'>{product.name}</h5>
 
 				<div className='mt-2 mb-5 flex items-center justify-between'>
 					<p>
-						<span className='text-3xl font-bold text-gray-500'>${product.price}</span>
+						<span className='text-3xl font-bold text-black'>${product.price}</span>
 					</p>
 				</div>
 			
 				<button
-					className='flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-center text-sm font-medium
-					 text-white hover:bg-sky-700 focus:outline-none focus:ring-4 focus:ring-sky-300'
+					className='flex items-center justify-center rounded-lg bg-black px-5 py-2.5 text-center text-sm font-medium
+					 text-white hover:bg-gray-500 focus:outline-none focus:ring-4 focus:ring-gray-300'
 					onClick={handleAddToCart}
 				>
 					<ShoppingCart size={22} className='mr-2' />

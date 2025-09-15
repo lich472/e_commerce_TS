@@ -35,16 +35,26 @@ function CategoryPage() {
 		}
 		return sorted;
 	}, [products, sortType]);
+
+	//format Category Name
+	const formatCategory = (cat) => {
+		return cat
+			.replace(/([A-Z])/g, " $1")
+			.trim()
+			.replace(/\b\w/g, (char) => char.toUpperCase());
+	};
+
   return (
     <div className='min-h-screen'>
 			<div className='relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-16'>
 				<motion.h1
-					className='text-center text-4xl sm:text-5xl font-bold text-sky-400 mb-8'
+					className='text-center text-4xl sm:text-5xl font-bold text-black mb-8'
 					initial={{ opacity: 0, y: -20 }}
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.8 }}
 				>
-					{category.charAt(0).toUpperCase() + category.slice(1)}
+					{/* {category.charAt(0).toUpperCase() + category.slice(1)} */}
+				{formatCategory(category)}
 				</motion.h1>
 
 				<motion.div
@@ -59,7 +69,7 @@ function CategoryPage() {
 						{/* SortBy */}
 						<div className='flex justify-between text-base sm:text-2xl mb-4'>
 							<select
-								className="bg-gray-800 border-2 border-gray-300 text-sm px-2"
+								className="bg-gray-100 border-2 border-gray-300 text-sm px-2"
 								value={sortType}
 								onChange={(e) => setSortType(e.target.value)}
 							>
@@ -79,7 +89,7 @@ function CategoryPage() {
 					transition={{ duration: 0.8, delay: 0.2 }}
 				>
 					{sortedProducts?.length === 0 && (
-						<h2 className='text-3xl font-semibold text-gray-300 text-center col-span-full'>
+						<h2 className='text-3xl font-semibold text-black text-center col-span-full'>
 							No products found
 						</h2>
 					)}

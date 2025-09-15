@@ -63,7 +63,7 @@ const AnalyticsTab = () => {
 				/>
 			</div>
 			<motion.div
-				className='bg-gray-800/60 rounded-lg p-6 shadow-lg'
+				className='bg-gray-100 rounded-lg p-6 shadow-lg'
 				initial={{ opacity: 0, y: 20 }}
 				animate={{ opacity: 1, y: 0 }}
 				transition={{ duration: 0.5, delay: 0.25 }}
@@ -71,9 +71,9 @@ const AnalyticsTab = () => {
 				<ResponsiveContainer width='100%' height={400}>
 					<LineChart data={dailySalesData}>
 						<CartesianGrid strokeDasharray='3 3' />
-						<XAxis dataKey='date' stroke='#D1D5DB' />
-						<YAxis yAxisId='left' stroke='#D1D5DB' />
-						<YAxis yAxisId='right' orientation='right' stroke='#D1D5DB' />
+						<XAxis dataKey='date' stroke='#000' />
+						<YAxis yAxisId='left' stroke='#000' />
+						<YAxis yAxisId='right' orientation='right' stroke='#000' />
 						<Tooltip />
 						<Legend />
 						<Line
