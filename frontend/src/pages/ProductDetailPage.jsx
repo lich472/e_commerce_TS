@@ -45,9 +45,9 @@ const ProductDetailPage = () => {
           <h1 className="text-3xl font-bold text-black mb-4">
             {product.name}
           </h1>
-          <span className="text-black font-semibold">Mô tả:</span> {" "}
+          <span className="text-black font-semibold">Description:</span> {" "}
           <p className="text-gray-900 mb-6">{product.description}</p>
-          <span className="text-black font-semibold">Giá:</span> {" "}
+          <span className="text-black font-semibold">Price:</span> {" "}
           <span className="text-2xl font-semibold text-red-600 mb-6">
             {formatPriceAUS(product.price)}
           </span>
