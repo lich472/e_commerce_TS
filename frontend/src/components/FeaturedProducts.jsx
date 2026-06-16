@@ -55,7 +55,7 @@ const FeaturedProducts = ({ featuredProducts }) => {
 										<div className='p-4'>
 											<h3 className='text-lg font-semibold mb-2 text-gray-500'>{product.name}</h3>
 											<p className='text-gray-500 font-medium mb-4'>
-												${product.price.toFixed(2)}
+												${product.price.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' })}
 											</p>
 											<button
 												onClick={() => addToCart(product)}
