@@ -11,7 +11,6 @@
   },
   "dependencies": {
     "@stripe/stripe-js": "^7.6.1",
-    "@tailwindcss/vite": "^4.1.11",
     "axios": "^1.11.0",
     "ecommerce": "file:..",
     "framer-motion": "^12.23.9",
@@ -23,12 +22,12 @@
     "react-is": "^19.2.7",
     "react-router-dom": "^7.7.0",
     "recharts": "^3.1.0",
-    "tailwindcss": "^4.1.11",
     "zustand": "^5.0.6"
   },
   "devDependencies": {
     "@eslint/js": "^9.30.1",
     "@react-email/components": "^1.0.12",
+    "@tailwindcss/vite": "^4.3.2",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^4.6.0",
@@ -36,6 +35,7 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^16.3.0",
+    "tailwindcss": "^4.3.2",
     "typescript": "^6.0.3",
     "vite": "^7.0.4"
   }
