@@ -1,7 +1,14 @@
 import React from "react";
 import { Html, Head, Body, Container, Text } from "@react-email/components";
 
-export const PurchaseConfirmationEmail = ({ order }) => {
+type OrderProps = {
+  order: {
+    customerName: string;
+    id: string;
+    total: number;
+  }
+}
+export const PurchaseConfirmationEmail = ({ order }: OrderProps) => {
   return React.createElement(
     Html,
     null,

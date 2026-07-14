@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 
-export type User = {
+export type IUser = {
 	name: string,
 	email: string,
 	password: string,
@@ -11,7 +11,7 @@ export type User = {
 	comparePassword(password: string): Promise<boolean>
 }
 
-const userSchema = new mongoose.Schema<User>(
+const userSchema = new mongoose.Schema<IUser>(
 	{
 		name: {
 			type: String,

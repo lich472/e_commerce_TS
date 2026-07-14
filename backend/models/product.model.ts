@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-export type Product = {
+export type IProduct = {
 	name: string,
 	description: string,
 	price: number,
@@ -9,7 +9,7 @@ export type Product = {
 	isFeatured: boolean
 }
 
-const productSchema = new mongoose.Schema<Product>(
+const productSchema = new mongoose.Schema<IProduct>(
 	{
 		name: {
 			type: String,

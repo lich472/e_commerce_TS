@@ -8,7 +8,8 @@ type Order = {
 		price: number,
 	}[],
 	totalAmount: number,
-	stripeSessionId: string
+	stripeSessionId: string,
+	emailSent: boolean;
 }
 
 const orderSchema = new mongoose.Schema<Order>(
