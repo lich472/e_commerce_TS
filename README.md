@@ -1,3 +1,27 @@
+# Dream E-Commerce
+
+A full-stack e-commerce platform built with the MERN stack and TypeScript.
+
+**Live Demo:** https://ecommerce-website-7-n87a.onrender.com
+
+## Tech Stack
+- **Frontend:** React, TypeScript, Tailwind CSS, Zustand
+- **Backend:** Node.js, Express, TypeScript
+- **Database:** MongoDB, Redis (Upstash)
+- **Storage:** Cloudinary
+- **Payments:** Stripe
+- **Email:** Resend API
+- **Deployment:** Render
+
+## Features
+- JWT authentication with access/refresh token rotation
+- Role-based access (Admin/Customer)
+- Shopping cart with coupon support
+- Stripe checkout with email confirmation
+- Admin dashboard with analytics
+- Product image upload via Cloudinary
+- Featured products cached in Redis
+
 # User Authentication
 ![Signup Page](./frontend/public/sign%20up%20page.png)
 
@@ -12,7 +36,7 @@
 Redis will store featured products and refresh tokens
 ![Redis](./frontend/public/redis%20img.png)
 
-MongoBD store user, product, orders, coupons data
+MongoDB store user, product, orders, coupons data
 ![MongoDB](./frontend/public/mongoBD.png)
 
 # Pages
@@ -49,17 +73,3 @@ All products pop up and Admin can trigger featured products
 ### Analytics Page
 This page show the chart to track Products bills, Revenue, User count
 ![Analytics Page](./frontend/public/analytics.png)
-
-
-
-
-
-
-
-
-
-
-
-
-## Expanding the ESLint configuration
-
