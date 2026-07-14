@@ -2,7 +2,7 @@
 
 A full-stack e-commerce platform built with the MERN stack and TypeScript.
 
-**Live Demo:** https://ecommerce-website-7-n87a.onrender.com
+**Live Demo:** https://e-commerce-ts-skjc.onrender.com/
 
 ## Tech Stack
 - **Frontend:** React, TypeScript, Tailwind CSS, Zustand
