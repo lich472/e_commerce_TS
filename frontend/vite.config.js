@@ -11,8 +11,13 @@ export default defineConfig({
   server:{
     proxy:{
       "/api": {
-        target: "http://localhost:9000",
+        target: "http://localhost:8000",
       }
     }
-  } // need "server:{}" to To forward API requests from your React frontend (served by Vite) to your backend (usually running on another port, like 5000), and avoid CORS errors.
+  }, // need "server:{}" to To forward API requests from your React frontend (served by Vite) to your backend (usually running on another port, like 5000), and avoid CORS errors.
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: "./src/test/setup.ts",
+  }
 })

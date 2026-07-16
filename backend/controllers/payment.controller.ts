@@ -1,9 +1,9 @@
 import React from "react";
 import Coupon from "../models/coupon.model.js";
 import Order from "../models/order.model.js";
-import { stripe } from "../lib/stripe.js";
+import { getStripe } from "../lib/stripe.js";
 import User from "../models/user.model.js"; // make sure User is imported
-import resend from "../lib/resend.js";
+import { getResend } from "../lib/resend.js";
 import { PurchaseConfirmationEmail } from "../emails/PurchaseConfirmationEmail.js";
 import ReactDOMServer from "react-dom/server";
 import { Request, Response } from "express";
@@ -51,7 +51,7 @@ export const createCheckoutSession = async (req: Request, res: Response) => {
 			}
 		}
 
-		const session = await stripe.checkout.sessions.create({
+		const session = await getStripe().checkout.sessions.create({
 			payment_method_types: ["card"],
 			line_items: lineItems,
 			mode: "payment",
@@ -93,7 +93,7 @@ export const createCheckoutSession = async (req: Request, res: Response) => {
 export const checkoutSuccess = async (req: Request, res: Response) => {
   try {
     const { sessionId } = req.body;
-    const session = await stripe.checkout.sessions.retrieve(sessionId);
+    const session = await getStripe().checkout.sessions.retrieve(sessionId);
 
     if (session.payment_status !== "paid") {
       return res.status(400).json({ message: "Payment not completed." });
@@ -147,7 +147,7 @@ export const checkoutSuccess = async (req: Request, res: Response) => {
 		);
 
       	try {
-			const response = await resend.emails.send({
+			const response = await getResend().emails.send({
 				from: "Ecommerce <onboarding@resend.dev>",
 				to: user.email,
 				subject: "Purchase Confirmed",
@@ -180,7 +180,7 @@ export const checkoutSuccess = async (req: Request, res: Response) => {
 };
 
 async function createStripeCoupon(discountPercentage: number) {
-	const coupon = await stripe.coupons.create({
+	const coupon = await getStripe().coupons.create({
 		percent_off: discountPercentage,
 		duration: "once",
 	});

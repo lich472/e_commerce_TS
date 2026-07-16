@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import { CategoryItem } from "../types";
+import { CategoryItemType } from "../types";
 
 type CategoryItemProps={
-	category: CategoryItem
+	category: CategoryItemType
 }
 const CategoryItem = ({ category }: CategoryItemProps) => {
 	return (

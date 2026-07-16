@@ -17,7 +17,7 @@ export type User = {
   cartItems: CartItemType[];
 }
 
-export type CategoryItem = {
+export type CategoryItemType = {
   href: string;
   imageUrl: string;
   name: string;

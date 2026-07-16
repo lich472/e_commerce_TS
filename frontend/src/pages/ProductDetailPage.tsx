@@ -1,14 +1,30 @@
+import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "../lib/axios";
 import { formatPriceAUS } from "../lib/format";
 import { Product } from "../types";
+import { useUserStore } from "../stores/useUserStore";
+import { useCartStore } from "../stores/useCartStore";
+import { ShoppingCart } from "lucide-react";
 
 const ProductDetailPage = () => {
   const { id } = useParams(); // get product id from URL
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const { user } = useUserStore();
+	const { addToCart } = useCartStore();
+	const handleAddToCart = () => {
+		if (!user) {
+			toast.error("Please login to add products to cart", { id: "login" });
+			return;
+		} else {
+			// add to cart
+			if(product) addToCart(product);
+		}
+	};
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -51,6 +67,16 @@ const ProductDetailPage = () => {
           <span className="text-black font-semibold">Price:</span> {" "}
           <span className="text-2xl font-semibold text-red-600 mb-6">
             {formatPriceAUS(product.price)}
+          </span>
+          <span>
+            <button
+            className='flex items-center justify-center rounded-lg bg-black px-5 py-2.5 text-center text-sm font-medium
+            text-white hover:bg-gray-500 focus:outline-none focus:ring-4 focus:ring-gray-300'
+            onClick={handleAddToCart}
+            >
+              <ShoppingCart size={22} className='mr-2' />
+              Add to cart
+            </button>
           </span>
         </div>
       </div>
