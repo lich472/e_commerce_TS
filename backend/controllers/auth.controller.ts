@@ -8,7 +8,7 @@ type DecodeToken = JwtPayload & {
 	userId: Types.ObjectId
 }
 
-const generateTokens = (userId: Types.ObjectId) => {
+export const generateTokens = (userId: Types.ObjectId) => {
 	const accessToken = jwt.sign({ userId }, process.env.ACCESS_TOKEN_SECRET!, {
 		expiresIn: "15m",
 	});

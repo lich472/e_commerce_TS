@@ -19,4 +19,8 @@ describe("formatPriceAUS", () => {
     it("format 9.99 as $9.99", () => {
         expect(formatPriceAUS(9.99)).toBe("$9.99")
     })
+
+    it("handles negative price", () => {
+        expect(formatPriceAUS(-50)).toBe("-$50.00")
+    })
 })
